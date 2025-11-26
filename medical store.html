@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Medical Store</title>
+  <style>
+    :root{--accent:#0b76ef;--muted:#666}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, Arial, sans-serif;margin:0;background:#f6f7fb;color:#111}
+    header{background:linear-gradient(90deg,var(--accent),#3aa0ff);color:white;padding:18px}
+    .container{max-width:1100px;margin:24px auto;padding:0 16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand h1{margin:0;font-size:20px}
+    .hero{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .search input{padding:10px;border-radius:8px;border:1px solid #d6d9e6;width:260px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:18px}
+    .card{background:white;padding:14px;border-radius:10px;box-shadow:0 2px 8px rgba(12,20,30,0.06);display:flex;flex-direction:column;gap:8px}
+    .card img{width:100%;height:140px;object-fit:contain;border-radius:8px;background:#fbfbfd;padding:8px}
+    .price{font-weight:700}
+    .muted{color:var(--muted);font-size:13px}
+    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-ghost{background:transparent;border:1px solid #e3e6f2}
+    .cart-toggle{position:fixed;right:18px;bottom:18px;background:var(--accent);color:white;padding:12px;border-radius:999px;box-shadow:0 6px 20px rgba(11,118,239,0.25);border:0}
+    /* cart panel */
+    .cart-panel{position:fixed;right:18px;top:18px;width:340px;max-height:78vh;overflow:auto;background:white;border-radius:12px;padding:12px;box-shadow:0 12px 40px rgba(8,20,40,0.12)}
+    .cart-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f2f7}
+    .cart-item img{width:56px;height:48px;object-fit:contain}
+    footer{color:var(--muted);padding:26px 0;text-align:center}
+    @media(max-width:600px){.hero{flex-direction:column;align-items:flex-start}.search input{width:100%}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container hero">
+      <div class="brand">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="white" opacity="0.12"/><path d="M12 7v10M7 12h10" stroke="white" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <h1>My Medical Store</h1>
+          <div style="font-size:13px;opacity:.9">Medicines • Health supplies • Fast pickup</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="search"><input id="search" placeholder="Search medicines, e.g. Paracetamol" /></div>
+        <button class="btn btn-ghost" id="adminBtn">Admin</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2 style="margin:0 0 8px">Products</h2>
+      <div class="grid" id="products"></div>
+    </section>
+
+    <section style="margin-top:24px;background:white;padding:16px;border-radius:10px">
+      <h3 style="margin:0 0 8px">Contact / Order request</h3>
+      <form id="contactForm">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input name="name" placeholder="Your name" style="flex:1;padding:10px;border-radius:8px;border:1px solid #e6e8f2" required />
+          <input name="phone" placeholder="Phone" style="width:200px;padding:10px;border-radius:8px;border:1px solid #e6e8f2" required />
+          <input name="address" placeholder="Address" style="flex-basis:100%;padding:10px;border-radius:8px;border:1px solid #e6e8f2" required />
+        </div>
+        <textarea name="notes" placeholder="Which products / pickup time?" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;border:1px solid #e6e8f2"></textarea>
+        <div style="margin-top:10px"><button class="btn btn-primary">Send Request</button></div>
+      </form>
+    </section>
+
+  </main>
+
+  <button class="cart-toggle" id="openCart">Cart (<span id="cartCount">0</span>)</button>
+
+  <div id="cartPanel" class="cart-panel" style="display:none">
+    <h3>Cart</h3>
+    <div id="cartItems"></div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div class="muted">Total</div>
+        <div id="totalAmt" style="font-weight:700">₹0.00</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" id="closeCart">Close</button>
+        <button class="btn btn-primary" id="checkout">Place Order</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Aman Medical Store — Call: <a href="tel:+918485059281">+91-8485059281</a>
+      <div style="margin-top:8px">
+        <a class="whatsapp" href="https://wa.me/919373804170?text=Hello%20Aman%20Medical" target="_blank">💬 WhatsApp: +91-9373804170</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+// Sample products (you can replace with real data or API)
+const SAMPLE_PRODUCTS = [
+  {id:1,name:'Paracetamol 500mg (Strip)',price:40,stock:50,desc:'Pain reliever & fever reducer',img:''},
+  {id:2,name:'Cough Syrup 100ml',price:90,stock:20,desc:'For cough and cold',img:''},
+  {id:3,name:'Multivitamin Capsules',price:250,stock:30,desc:'Daily vitamins',img:''},
+  {id:4,name:'Antacid Tablets',price:120,stock:25,desc:'For acidity',img:''}
+];
+
+// State
+let products = JSON.parse(localStorage.getItem('products')) || SAMPLE_PRODUCTS;
+let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+function formatINR(n){return '₹' + Number(n).toFixed(2)}
+
+function renderProducts(filter=''){
+  const container = document.getElementById('products'); container.innerHTML='';
+  const q=filter.trim().toLowerCase();
+  products.filter(p=> p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q)).forEach(p=>{
+    const card = document.createElement('div'); card.className='card';
+    card.innerHTML = `
+      <img alt="${p.name}" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='100%' height='100%' fill='%23f7fafc'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23c0c6d9' font-size='20'>Image</text></svg>` +
+      `<div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:start"><div><div style='font-weight:700'>${p.name}</div><div class='muted' style='margin-top:4px'>${p.desc}</div></div><div class='price'>${formatINR(p.price)}</div></div></div>`+
+      `<div style='display:flex;gap:8px;margin-top:8px'><button class='btn btn-primary' data-id='${p.id}'>Add to cart</button><button class='btn btn-ghost' data-id='${p.id}' data-action='quick'>Quick view</button></div>`;
+    container.appendChild(card);
+  })
+}
+
+function updateCartUI(){
+  document.getElementById('cartCount').innerText = Object.values(cart).reduce((s,it)=>s+it.qty,0);
+  const itemsDiv = document.getElementById('cartItems'); itemsDiv.innerHTML='';
+  let total=0;
+  Object.values(cart).forEach(item=>{
+    total += item.qty*item.price;
+    const div = document.createElement('div'); div.className='cart-item';
+    div.innerHTML = `<img src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'160\' height=\'120\'><rect width=\'100%\' height=\'100%\' fill=\'#f7fafc\'/></svg>' alt=''><div style='flex:1'><div style='font-weight:700'>${item.name}</div><div class='muted'>${formatINR(item.price)} • Qty: <input type='number' min='1' value='${item.qty}' data-id='${item.id}' style='width:60px;padding:4px;border-radius:6px;border:1px solid #eee'/></div></div><div><button class='btn btn-ghost' data-id='${item.id}' data-action='remove'>Remove</button></div>`;
+    itemsDiv.appendChild(div);
+  })
+  document.getElementById('totalAmt').innerText = formatINR(total);
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Events
+document.addEventListener('click', e=>{
+  const t = e.target;
+  if(t.matches('.btn-primary') && t.dataset.id){ // add to cart from product
+    const id = Number(t.dataset.id); const p = products.find(x=>x.id===id); if(!p) return;
+    if(cart[id]) cart[id].qty += 1; else cart[id] = {...p,qty:1};
+    updateCartUI();
+  }
+  if(t.id==='openCart'){ document.getElementById('cartPanel').style.display='block' }
+  if(t.id==='closeCart'){ document.getElementById('cartPanel').style.display='none' }
+  if(t.dataset.action==='remove'){ const id=Number(t.dataset.id); delete cart[id]; updateCartUI(); }
+  if(t.id==='checkout'){
+    if(Object.keys(cart).length===0){alert('Cart is empty');return}
+    // In real app: call backend to create order / payment gateway
+    alert('Order placed (demo). We will contact you.'); cart={}; updateCartUI(); document.getElementById('cartPanel').style.display='none'
+  }
+  if(t.id==='adminBtn'){
+    const pass = prompt('Enter admin pass to add product (demo)'); if(pass==='admin123') openAdmin(); else if(pass) alert('Wrong pass');
+  }
+})
+
+// quantity change inside cart
+document.getElementById('cartItems').addEventListener('change', e=>{
+  const t=e.target; if(t.tagName==='INPUT' && t.type==='number' && t.dataset.id){ const id=Number(t.dataset.id); const v=Number(t.value); if(v<=0){ delete cart[id]; } else cart[id].qty = v; updateCartUI(); }
+})
+
+// search
+document.getElementById('search').addEventListener('input', e=> renderProducts(e.target.value));
+
+// contact form demo
+document.getElementById('contactForm').addEventListener('submit', e=>{
+  e.preventDefault(); const fd = new FormData(e.target); const obj = Object.fromEntries(fd.entries());
+  // In real site: send to server. Here demo stores in localStorage
+  const requests = JSON.parse(localStorage.getItem('orders')||'[]');
+  requests.push({id:Date.now(),cart:Object.values(cart),customer:obj});
+  localStorage.setItem('orders', JSON.stringify(requests));
+  alert('Thank you! Your request has been saved. We will contact you soon.'); e.target.reset(); cart={}; updateCartUI();
+})
+
+function openAdmin(){
+  const name = prompt('Product name'); if(!name) return; const price = Number(prompt('Price (₹)'))||0; const desc = prompt('Short description')||''; const id = Math.max(0,...products.map(p=>p.id))+1;
+  products.push({id,name,price,desc,stock:100}); localStorage.setItem('products', JSON.stringify(products)); renderProducts(); alert('Product added');
+}
+
+// init
+renderProducts(); updateCartUI(); document.getElementById('year').innerText = new Date().getFullYear();
+</script>
+</body>
+</html>

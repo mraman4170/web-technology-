@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr. M. A. Rahman — Appointment</title>
+
+    <style>
+         :root {
+            --primary: #1a73e8;
+            --bg: #f3f6fb;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --card-bg: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text-dark);
+        }
+        /* Header */
+        
+        header {
+            background: #ffffff;
+            padding: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        header .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        header img {
+            height: 70px;
+            width: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        header p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        /* Layout */
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 900px) {
+            .grid {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+        /* Cards */
+        
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+        
+        h2,
+        h3 {
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .small {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .timing div {
+            margin-bottom: 5px;
+        }
+        
+        .contact-list a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        /* Form */
+        
+        form .row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        form .row .field {
+            flex: 1;
+        }
+        
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #dbe3ee;
+            font-size: 14px;
+            background: #fafcff;
+        }
+        
+        textarea {
+            height: 95px;
+        }
+        
+        .btn {
+            padding: 12px 18px;
+            background: var(--primary);
+            color: #ffffff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn.secondary {
+            background: #ffffff;
+            color: var(--primary);
+            border: 1px solid #d0dffc;
+        }
+        
+        .success {
+            display: none;
+            background: #e7fff3;
+            border: 1px solid #b7f2d2;
+            padding: 12px;
+            border-radius: 10px;
+            color: #0f6b4c;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            margin: 40px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <!-- ==== LOGO ADDED HERE ==== -->
+            <img src="logo.jpg" alt="Clinic Logo">
+
+            <div>
+                <h1>Dr. M. A. Rahman (Himayatnagarkar)</h1>
+                <p>M.B.B.S., M.S., E.N.T., D.O.R.L — ENT Specialist</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="grid">
+
+            <!-- LEFT -->
+            <aside class="card">
+                <div>
+                    <div class="section-title">Doctor’s Profile</div>
+                    <p><strong>Dr. M. A. Rahman</strong><br> M.B.B.S., M.S., E.N.T., D.O.R.L
+                    </p>
+                    <p class="small">Experienced ENT surgeon with extensive clinical practice in surgery and diagnostics.</p>
+                </div>
+
+                <hr style="margin:14px 0; border:none; border-top:1px solid #edf0f5" />
+
+                <div>
+                    <div class="section-title">Clinic Timings</div>
+                    <p class="small">Mon – Sat: <strong>9:00 PM – 11:30 PM</strong></p>
+                    <p class="small">Sunday: <strong>Closed</strong></p>
+                </div>
+
+                <hr style="margin:14px 0; border:none; border-top:1px solid #edf0f5" />
+
+                <div>
+                    <div class="section-title">Address</div>
+                    <p class="small">Opp SBI Bank, Degloor Naka<br>Nanded, Maharashtra, India</p>
+
+                    <div style="margin-top:14px">
+                        <div class="section-title">Contact</div>
+                        <div class="contact-list small">
+                            <p>Phone: <a href="tel:+919373804170">9373804170</a></p>
+                            <p>WhatsApp: <a href="https://wa.me/919373804170">Click to chat</a></p>
+                            <p>Email: <a href="mailto:hashmi.medic@gmail.com">hashmi.medic@gmail.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT -->
+            <section>
+                <div class="card">
+                    <h2>Book an Appointment</h2>
+                    <p class="small">Submit the form. The clinic will contact you to confirm the appointment.</p>
+
+                    <div id="messageBox" class="success">Appointment request sent!</div>
+
+                    <form id="appointmentForm" onsubmit="return handleSubmit(event)">
+                        <div class="row">
+                            <div class="field"><label class="small">Full Name</label><input type="text" id="name" required></div>
+                            <div class="field"><label class="small">Phone</label><input type="tel" id="phone" required></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="field"><label class="small">Email (optional)</label><input type="email" id="email"></div>
+                            <div class="field"><label class="small">Age</label><input type="number" id="age"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="field"><label class="small">Preferred Date</label><input type="date" id="date" required></div>
+                            <div class="field"><label class="small">Preferred Time</label><input type="time" id="time"></div>
+                        </div>
+
+                        <div>
+                            <label class="small">Reason for Visit</label>
+                            <textarea id="reason"></textarea>
+                        </div>
+
+                        <div style="margin-top:14px; display:flex; gap:10px">
+                            <button class="btn" type="submit">Submit Request</button>
+                            <a class="btn secondary" href="https://wa.me/919373804170">Message on WhatsApp</a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            © Dr. M. A. Rahman — Appointment Portal
+        </footer>
+    </main>
+
+   <script>
+// Set default date & time when page loads
+window.onload = function () {
+    // Aaj ki date set
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("date").value = today;
+
+    // Default time set: 09:30 PM → 21:30 in 24hr format
+    document.getElementById("time").value = "21:30";
+};
+
+async function handleSubmit(e) {
+    e.preventDefault();
+
+    const data = {
+        name: document.getElementById("name").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        age: document.getElementById("age").value.trim(),
+        date: document.getElementById("date").value,
+        time: document.getElementById("time").value,
+        reason: document.getElementById("reason").value.trim()
+    };
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxnIF8FSwOYNkEyVb-7t0InQDud8FwVYleBLLMG9ZUxKLJ-51QVeDtaSd_aGYy1-0a8/exec";
+
+    fetch(scriptURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data)
+    });
+
+    // Show success message
+    document.getElementById("messageBox").style.display = "block";
+    document.getElementById("appointmentForm").reset();
+
+    // Reset default values again after reset
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("date").value = today;
+    document.getElementById("time").value = "21:30";
+
+    return false;
+}
+</script>
+
+
+</body>
+
+</html>

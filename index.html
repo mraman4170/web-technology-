@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dr. M. A. Rehman — Appointments</title>
+  <style>
+    :root{--accent:#0f62fe;--muted:#6b7280;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial}
+    *{box-sizing:border-box}
+    body{font-family:var(--font,Inter),sans-serif;margin:0;background:#f7f9fc;color:#111}
+    header{background:white;padding:28px 20px;border-bottom:1px solid #e6e9ef}
+    .container{max-width:960px;margin:28px auto;padding:0 18px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:840px){.grid{grid-template-columns:320px 1fr}}
+    .card{background:white;border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h1{font-size:20px;margin:0 0 6px}
+    p.lead{color:var(--muted);margin:0 0 12px}
+    .meta{font-size:14px;color:var(--muted);margin-bottom:8px}
+    .label{font-weight:600;color:#0b1220;margin-bottom:8px}
+    .timing{display:flex;flex-direction:column;gap:6px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:600}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid #d7e3ff}
+    form .row{display:flex;gap:10px;margin-bottom:10px}
+    form .row .field{flex:1}
+    input[type=text], input[type=email], input[type=tel], textarea, input[type=date], input[type=time], select{width:100%;padding:10px;border:1px solid #dde6f0;border-radius:8px;font-size:14px}
+    textarea{min-height:88px}
+    .small{font-size:13px;color:var(--muted)}
+    footer{margin:28px 0 60px;text-align:center;color:var(--muted)}
+    .contact-list{display:flex;flex-direction:column;gap:6px}
+    .whatsapp{display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+    .success{background:#ecfdf5;border:1px solid #bbf7d0;padding:12px;border-radius:8px;color:#065f46}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Dr. M. A. Rahman (Himayatnagarkar)</h1>
+      <p class="lead">M.B.B.S., M.S., E.N.T., D.O.R.L — ENT specialist. Online appointments & clinic information.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <aside class="card">
+        <div>
+          <div class="label">Doctor's profile</div>
+          <p><strong>Dr. M. A. Rahman (Himayatnagarkar)</strong><br>M.B.B.S., M.S., E.N.T., D.O.R.L</p>
+          <p class="small">Experienced ENT surgeon with years of clinical practice. (Add short biography here — education, experience, languages spoken.)</p>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f7">
+
+        <div>
+          <div class="label">Clinic timings</div>
+          <div class="timing">
+            <div>Mon – Sat: 9:00 PM – 11:30 PM</div>
+           
+            <div>Sunday: Closed</div>
+          </div>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid #eef2f7">
+
+        <div>
+          <div class="label">Address</div>
+          <p class="small"> opp SBI bank, Degloor naka<br>Nanded, Maharashtra, India</p>
+
+          <div style="margin-top:10px">
+            <div class="label">Contact</div>
+            <div class="contact-list">
+              <div>Phone: <a href="tel:+919373804170">9373804170</a></div>
+              <div>WhatsApp: <a class="whatsapp" href="https://wa.me/919373804170?text=Hello%20Doctor%20Rehman%2C%20I%20would%20like%20to%20book%20an%20appointment">+91 93738 04170</a></div>
+              <div>Email: <a href="mailto:hashmi.medic@gmail.com">hashmi.medic@gmail.com</a></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section>
+        <div class="card">
+          <h2 style="margin-top:0">Book an appointment</h2>
+          <p class="small">Fill this form to request an appointment. You will receive a confirmation call/SMS/WhatsApp from the clinic.</p>
+
+          <div id="messageBox" style="display:none" class="success">Your appointment request has been sent. The clinic will contact you to confirm the time.</div>
+
+          <!-- NOTE: Replace the form action with your form handler (Formspree endpoint, Netlify Forms, or your server). -->
+          <form id="appointmentForm" onsubmit="return handleSubmit(event)">
+            <div class="row">
+              <div class="field"><label class="small">Full name</label><input type="text" id="name" required></div>
+              <div class="field"><label class="small">Phone</label><input type="tel" id="phone" required></div>
+            </div>
+
+            <div class="row">
+              <div class="field"><label class="small">Email (optional)</label><input type="email" id="email"></div>
+              <div class="field"><label class="small">Age</label><input type="text" id="age"></div>
+            </div>
+
+            <div class="row">
+              <div class="field"><label class="small">Preferred date</label><input type="date" id="date" required></div>
+              <div class="field"><label class="small">Preferred time</label><input type="time" id="time"></div>
+            </div>
+
+            <div style="margin-bottom:10px">
+              <label class="small">Reason for visit (short)</label>
+              <textarea id="reason"></textarea>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:center">
+              <button type="submit" class="btn">Request appointment</button>
+              <a class="btn secondary" href="https://wa.me/919373804170?text=Hello%20Doctor%20Rehman%2C%20I%20want%20to%20book%20an%20appointment.%20My%20name%20is%20">Message on WhatsApp</a>
+            </div>
+
+            <p class="small" style="margin-top:10px">By submitting you agree the clinic may contact you by phone or WhatsApp to confirm the appointment.</p>
+          </form>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="card">
+          <h3 style="margin-top:0">How this works</h3>
+          <ol class="small">
+            <li>Fill and submit the appointment request form (or message on WhatsApp).</li>
+            <li>Clinic will call or message you to confirm date/time and fee.</li>
+            <li>Come to the clinic at the confirmed time. Walk-ins accepted if slots are available.</li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p class="small">© Dr. M. A. Rehman — Clinic information. This is a demo single-page site. Replace contact details and clinic timings with exact information.</p>
+    </footer>
+  </main>
+
+  <script>
+    function handleSubmit(e){
+      e.preventDefault();
+      // Collect data
+      const data={
+        name:document.getElementById('name').value.trim(),
+        phone:document.getElementById('phone').value.trim(),
+        email:document.getElementById('email').value.trim(),
+        age:document.getElementById('age').value.trim(),
+        date:document.getElementById('date').value,
+        time:document.getElementById('time').value,
+        reason:document.getElementById('reason').value.trim()
+      };
+
+      // Basic validation
+      if(!data.name||!data.phone||!data.date){
+        alert('Please enter name, phone and preferred date.');
+        return false;
+      }
+
+      // TODO: replace with a real form submission endpoint (Formspree / Netlify Forms / your server)
+      // For now we open user's email client with prefilled message (mailto) as a fallback.
+
+      const subject = encodeURIComponent('Appointment request: ' + data.name);
+      const body = encodeURIComponent(
+        `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email}\nAge: ${data.age}\nPreferred date: ${data.date}\nPreferred time: ${data.time}\nReason: ${data.reason}`
+      );
+
+      // Open mail client
+      const mailto = `mailto:clinic@example.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+
+      // Show success box (user will still need to send email from mail client)
+      document.getElementById('messageBox').style.display='block';
+      document.getElementById('appointmentForm').reset();
+      return false;
+    }
+  </script>
+</body>
+</html>
